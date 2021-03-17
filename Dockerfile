@@ -1,4 +1,3 @@
-
 FROM ubuntu:20.04
 
 RUN apt-get update && apt-get install --no-install-recommends --assume-yes -qq curl libncurses5-dev build-essential zlib1g-dev libbz2-dev liblzma-dev unzip default-jre python-is-python3 && apt-get clean
@@ -9,11 +8,10 @@ RUN curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases
       mkdir /tmp/samtools && \
       tar jxvf /tmp/samtools.tgz.bz2 --strip 1 -C /tmp/samtools && \
       cd /tmp/samtools && \
-      ./configure --prefix=/use/local  && \
+      ./configure --prefix=/usr/local/  && \
       make  && \
       make install  && \
       rm -rf /tmp/samtools*
-
 
 RUN curl -Lo /tmp/bcftools.tgz.bz2 https://github.com/samtools/bcftools/releases/download/1.11/bcftools-1.11.tar.bz2 && \
       mkdir /tmp/bcftools && \
@@ -24,12 +22,29 @@ RUN curl -Lo /tmp/bcftools.tgz.bz2 https://github.com/samtools/bcftools/releases
       make install  && \
       rm -rf /tmp/bcftools*
 
+RUN curl -Lo /tmp/htslib.tgz.bz2 https://github.com/samtools/htslib/releases/download/1.11/htslib-1.11.tar.bz2 && \
+      mkdir /tmp/htslib && \
+      tar jxvf /tmp/htslib.tgz.bz2 --strip 1 -C /tmp/htslib && \
+      cd /tmp/htslib && \
+      ./configure --prefix=/usr/local/  && \
+      make  && \
+      make install  && \
+      rm -rf /tmp/htslib*
+
+RUN curl -Lo /tmp/bwa.tgz.bz2 https://downloads.sourceforge.net/project/bio-bwa/bwa-0.7.17.tar.bz2 && \
+      mkdir /tmp/bwa && \
+      tar jxvf /tmp/bwa.tgz.bz2 --strip 1 -C /tmp/bwa && \
+      cd /tmp/bwa && \
+      make  && \
+      cp bwa /usr/local/bin/bwa  && \
+      rm -rf /tmp/bwa*
 
 RUN curl -Lo /tmp/gatk.zip https://github.com/broadinstitute/gatk/releases/download/4.2.0.0/gatk-4.2.0.0.zip && \
       mkdir /usr/local/gatk && \
       unzip -d /usr/local/gatk/ /tmp/gatk.zip && \
       mv /usr/local/gatk/*/* /usr/local/gatk/ && \
-      ln -s /usr/local/gatk/gatk /usr/local/bin/gatk
+      ln -s /usr/local/gatk/gatk /usr/local/bin/gatk && \
+      rm /tmp/gatk.zip
 
 RUN curl -Lo /usr/local/jars/picard.jar https://github.com/broadinstitute/picard/releases/download/2.25.0/picard.jar
 
