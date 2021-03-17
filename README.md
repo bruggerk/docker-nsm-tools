@@ -31,7 +31,7 @@ docker run -v [PATH-TO-REFERENCE-DATA]:/references/:ro -v`pwd`:/run/ -w /run bru
 ```
 
 
-Tools/jars in container :
+Tools in container :
 -------------------------
 
 * samtools
