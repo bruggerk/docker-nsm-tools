@@ -1,10 +1,15 @@
+#FROM alpine
 FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install --no-install-recommends --assume-yes -qq curl libncurses5-dev build-essential zlib1g-dev libbz2-dev liblzma-dev unzip default-jre python-is-python3 && apt-get clean
+ENV TZ=Europe/Oslo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
+RUN apt-get update && apt-get install --no-install-recommends --assume-yes -qq curl libncurses5-dev build-essential zlib1g-dev libbz2-dev liblzma-dev unzip default-jre python-is-python3 r-base && apt-get clean
 
 RUN mkdir -p  /usr/local/jars/ 
 
-RUN curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/1.11/samtools-1.11.tar.bz2 && \
+RUN curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
       mkdir /tmp/samtools && \
       tar jxvf /tmp/samtools.tgz.bz2 --strip 1 -C /tmp/samtools && \
       cd /tmp/samtools && \
@@ -44,7 +49,16 @@ RUN curl -Lo /tmp/gatk.zip https://github.com/broadinstitute/gatk/releases/downl
       unzip -d /usr/local/gatk/ /tmp/gatk.zip && \
       mv /usr/local/gatk/*/* /usr/local/gatk/ && \
       ln -s /usr/local/gatk/gatk /usr/local/bin/gatk && \
-      rm /tmp/gatk.zip
+      rm -f /tmp/gatk.zip
+
+
+RUN curl -Lo  /tmp/star.tgz https://github.com/alexdobin/STAR/archive/2.7.8a.tar.gz && \
+    mkdir /tmp/star && \
+    tar zxvf /tmp/star.tgz --strip 1 -C /tmp/star && \
+    cd /tmp/star/source && \
+    make  && \
+    cp STAR /usr/local/bin/  && \
+    rm -rf /tmp/star*
 
 RUN curl -Lo /usr/local/jars/picard.jar https://github.com/broadinstitute/picard/releases/download/2.25.0/picard.jar
 
