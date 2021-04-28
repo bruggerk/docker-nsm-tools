@@ -64,3 +64,10 @@ RUN curl -Lo /usr/local/jars/picard.jar https://github.com/broadinstitute/picard
 
 RUN curl -Lo /usr/local/bin/verifyBamID https://github.com/statgen/verifyBamID/releases/download/v1.1.3/verifyBamID && \
     chmod 755 /usr/local/bin/verifyBamID
+
+
+RUN curl -Lo /tmp/bedtools.tgz https://github.com/arq5x/bedtools2/releases/download/v2.30.0/bedtools-2.30.0.tar.gz && \
+    mkdir /tmp/bedtools && \
+    tar zxvf /tmp/bedtools.tgz --strip 1 -C /tmp/bedtools && \
+    make && \
+    cp bin/* /usr/local/bin/
