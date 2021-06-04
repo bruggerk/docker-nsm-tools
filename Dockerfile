@@ -69,5 +69,16 @@ RUN curl -Lo /usr/local/bin/verifyBamID https://github.com/statgen/verifyBamID/r
 RUN curl -Lo /tmp/bedtools.tgz https://github.com/arq5x/bedtools2/releases/download/v2.30.0/bedtools-2.30.0.tar.gz && \
     mkdir /tmp/bedtools && \
     tar zxvf /tmp/bedtools.tgz --strip 1 -C /tmp/bedtools && \
+    cd /tmp/bedtools/ && \
     make && \
     cp bin/* /usr/local/bin/
+
+
+
+RUN curl -Lo /tmp/minimap2.tgz.bz2 https://github.com/lh3/minimap2/releases/download/v2.20/minimap2-2.20.tar.bz2 && \
+      mkdir /tmp/minimap2 && \
+      tar jxvf /tmp/minimap2.tgz.bz2 --strip 1 -C /tmp/minimap2 && \
+      cd /tmp/minimap2 && \
+      make  && \
+      cp  minimap2 /usr/local/bin/minimap2  && \
+      rm -rf /tmp/minimap2*
