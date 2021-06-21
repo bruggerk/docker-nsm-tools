@@ -82,3 +82,10 @@ RUN curl -Lo /tmp/minimap2.tgz.bz2 https://github.com/lh3/minimap2/releases/down
       make  && \
       cp  minimap2 /usr/local/bin/minimap2  && \
       rm -rf /tmp/minimap2*
+
+RUN curl -Lo /tmp/salmon.tgz https://github.com/COMBINE-lab/salmon/releases/download/v1.5.1/salmon-1.5.1_linux_x86_64.tar.gz && \
+      mkdir /usr/local/lib/salmon && \
+      tar zxvf /tmp/salmon.tgz --strip 1 -C /usr/local/lib/salmon && \
+      ln -s /usr/local/lib/salmon/bin/salmon /usr/local/bin/salmon && \
+      rm -f /tmp/salmon.tgz
+
