@@ -40,9 +40,13 @@ Tools in container :
 * bwa
 * gatk
 * verifyBamID
+* bedtools
+* minimap
+* salmon
 
 
 Jars in container :
 -------------------------
 
 * picard
+
