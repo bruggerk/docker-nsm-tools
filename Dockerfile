@@ -71,7 +71,8 @@ RUN curl -Lo /tmp/bedtools.tgz https://github.com/arq5x/bedtools2/releases/downl
     tar zxvf /tmp/bedtools.tgz --strip 1 -C /tmp/bedtools && \
     cd /tmp/bedtools/ && \
     make && \
-    cp bin/* /usr/local/bin/
+    cp bin/* /usr/local/bin/ && \
+    rm -rf /tmp/bedtools*
 
 
 
@@ -89,3 +90,19 @@ RUN curl -Lo /tmp/salmon.tgz https://github.com/COMBINE-lab/salmon/releases/down
       ln -s /usr/local/lib/salmon/bin/salmon /usr/local/bin/salmon && \
       rm -f /tmp/salmon.tgz
 
+
+RUN curl -Lo /tmp/fastqc.zip https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.9.zip && \
+      cd /usr/local/lib && \
+      unzip /tmp/fastqc.zip && \
+      cd /usr/local/bin && \
+      ln -s /usr/local/lib/FastQC/fastqc && \
+      chmod 755 /usr/local/bin/fastqc && \
+      rm /tmp/fastqc.zip
+
+RUN curl -Lo /tmp/subread.tgz https://sourceforge.net/projects/subread/files/subread-2.0.3/subread-2.0.3-Linux-x86_64.tar.gz/download && \
+    mkdir -p /tmp/subread && \
+    tar zxvf /tmp/subread.tgz --strip 1 -C /tmp/subread && \
+    cp /tmp/subread/bin/* /usr/local/bin/ && \
+    rm -rf /tmp/subread/bin/utilities
+    rm -rf /tmp/subread*
+    
