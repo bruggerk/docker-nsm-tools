@@ -102,7 +102,7 @@ RUN curl -Lo /tmp/fastqc.zip https://www.bioinformatics.babraham.ac.uk/projects/
 RUN curl -Lo /tmp/subread.tgz https://sourceforge.net/projects/subread/files/subread-2.0.3/subread-2.0.3-Linux-x86_64.tar.gz/download && \
     mkdir -p /tmp/subread && \
     tar zxvf /tmp/subread.tgz --strip 1 -C /tmp/subread && \
+    rm -rf /tmp/subread/bin/utilities && \
     cp /tmp/subread/bin/* /usr/local/bin/ && \
-    rm -rf /tmp/subread/bin/utilities
     rm -rf /tmp/subread*
     
