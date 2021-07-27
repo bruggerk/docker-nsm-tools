@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install --no-install-recommends --assume-yes -qq c
 
 RUN mkdir -p  /usr/local/jars/ 
 
-RUN curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/1.12/samtools-1.12.tar.bz2 && \
+RUN curl -Lo /tmp/samtools.tgz.bz2 https://github.com/samtools/samtools/releases/download/1.13/samtools-1.13.tar.bz2 && \
       mkdir /tmp/samtools && \
       tar jxvf /tmp/samtools.tgz.bz2 --strip 1 -C /tmp/samtools && \
       cd /tmp/samtools && \
